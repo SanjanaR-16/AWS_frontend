@@ -22,7 +22,11 @@
     "cloudfront:build:deploy:nc": "npm run client:build:deploy:nc && npm run cloudfront:invalidateCache",
     "cloudfront:update:build:deploy": "npm run cloudfront:setup && npm run cloudfront:build:deploy",
     "cloudfront:update:build:deploy:nc": "npm run cloudfront:setup && npm run cloudfront:build:deploy:nc",
-    "serverless:remove": "sls remove"
+    "serverless:remove": "sls remove",
+    "cdk:build:deploy": "npm run build && cd ../infra && npm run cdk:deploy",
+    "cdk:deploy": "cd ../infra && npm run cdk:deploy",
+    "cdk:destroy": "cd ../infra && npm run cdk:destroy",
+    "cdk:synth": "cd ../infra && npm run cdk:synth"
   },
   "dependencies": {
     "@emotion/react": "^11.9.3",
@@ -31,7 +35,9 @@
     "@mui/material": "^5.8.7",
     "@mui/styles": "^5.8.7",
     "@types/yup": "^0.29.14",
+    "aws-cdk-lib": "^2.250.0",
     "axios": "^0.27.2",
+    "constructs": "^10.6.0",
     "formik": "^2.2.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
