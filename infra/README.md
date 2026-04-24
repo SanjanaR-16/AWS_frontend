@@ -1,0 +1,3 @@
+
+S3 Bucket	deploywebappstack-deploymentfrontendbucket67ceb713-ciceejyh7iks
+CloudFront URL	https://d14p2n3knnxeg7.cloudfront.net
