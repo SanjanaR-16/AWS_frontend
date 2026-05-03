@@ -33,7 +33,7 @@ export class DeploymentService extends Construct {
     });
 
     new aws_s3_deployment.BucketDeployment(this, 'BucketDeployment', {
-      sources: [aws_s3_deployment.Source.asset(path.join(__dirname, '../../shop-react-redux-cloudfront/dist'))],
+      sources: [aws_s3_deployment.Source.asset(path.join(__dirname, '../../dist'))],
       destinationBucket: hostingBucket,
       distribution,
       distributionPaths: ['/*'],

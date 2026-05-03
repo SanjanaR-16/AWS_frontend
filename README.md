@@ -1,9 +1,7 @@
 # Automated deployment
-S3 Bucket	deploywebappstack-deploymentfrontendbucket67ceb713-ciceejyh7iks
-CloudFront URL	https://d14p2n3knnxeg7.cloudfront.net
-# Manual deployment
-## S3 Bucket
-http://myshop-frontend-16.s3-website.eu-north-1.amazonaws.com/
+S3 Bucket	deploywebappstack-deploymentfrontendbucket67ceb713-85lijhkyzivd
+CloudFront URL	https://d3hv0gelkn1n9x.cloudfront.net
 
-## CloudFront
-https://ddy1p1lyetv12.cloudfront.net/
+# Product Service API
+GET /products	https://vwlykfdzq8.execute-api.us-east-1.amazonaws.com/prod/products
+GET /products/{productId}	https://vwlykfdzq8.execute-api.us-east-1.amazonaws.com/prod/products/{productId}
