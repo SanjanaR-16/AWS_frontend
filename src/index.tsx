@@ -7,6 +7,24 @@ import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { theme } from "~/theme";
+import axios from "axios";
+
+// Global axios response interceptor to handle 401 and 403
+axios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      alert(
+        "Authorization header is not provided. Please set your authorization_token in localStorage."
+      );
+    } else if (error.response?.status === 403) {
+      alert(
+        "Access denied. Your authorization token is invalid or does not have permission."
+      );
+    }
+    return Promise.reject(error);
+  }
+);
 
 const queryClient = new QueryClient({
   defaultOptions: {
