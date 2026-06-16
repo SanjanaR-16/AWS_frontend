@@ -1,6 +1,7 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import axios from "axios";
 
 type CSVFileImportProps = {
   url: string;
@@ -25,22 +26,50 @@ export default function CSVFileImport({ url, title }: CSVFileImportProps) {
   const uploadFile = async () => {
     console.log("uploadFile to", url);
 
-    // Get the presigned URL
-    // const response = await axios({
-    //   method: "GET",
-    //   url,
-    //   params: {
-    //     name: encodeURIComponent(file.name),
-    //   },
-    // });
-    // console.log("File to upload: ", file.name);
-    // console.log("Uploading to: ", response.data);
-    // const result = await fetch(response.data, {
-    //   method: "PUT",
-    //   body: file,
-    // });
-    // console.log("Result: ", result);
-    // setFile("");
+    if (!file) return;
+
+    // Get authorization token from localStorage
+    const authorizationToken = localStorage.getItem("authorization_token");
+    const headers: Record<string, string> = {};
+    if (authorizationToken) {
+      headers["Authorization"] = `Basic ${authorizationToken}`;
+    }
+
+    try {
+      // Get the presigned URL
+      const response = await axios({
+        method: "GET",
+        url,
+        params: {
+          name: encodeURIComponent(file.name),
+        },
+        headers,
+      });
+      console.log("File to upload: ", file.name);
+      console.log("Uploading to: ", response.data);
+      const result = await fetch(response.data, {
+        method: "PUT",
+        body: file,
+      });
+      console.log("Result: ", result);
+      if (result.status === 200 || result.status === 201) {
+        alert("File uploaded successfully!");
+      }
+      setFile(undefined);
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status;
+        if (status === 401) {
+          alert("You are not authorized. Please provide a valid authorization token.");
+        } else if (status === 403) {
+          alert("Access denied. You do not have permission to upload files.");
+        } else {
+          alert(`Upload failed: ${error.message}`);
+        }
+      } else {
+        alert("An unexpected error occurred during upload.");
+      }
+    }
   };
   return (
     <Box>
